@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        table {
+            background-color: white;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+        td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        img {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            text-decoration: none;
+        }
+        td:nth-child(2) {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+    
+    
+</head>
+<body>
+    <h1>Followers</h1>
+      <table>
+        <tr th:each="user:${followers}">
+            <td><img th:if="${user.imageUrl==null}"
+                src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
+                alt="Profile Picture" class="profile-picture">
+            <img th:if="${user.imageUrl}" th:src="${user.imageUrl}" alt="Profile Picture"
+                class="profile-picture">
+        </td>
+        <td th:text="${user.username}"></td>
+         <td><a th:href="'/view-profile/'+${user.id}"><button>View Profile</button></a></td>
+        <td>
+            <a th:if="${!user.isFollowing()}" th:href="'/follow/'+${user.id}"><button>Follow</button></a>
+            <a th:if="${user.isFollowing()}" th:href="'/unfollow/'+${user.id}"><button>Un-Follow</button></a>
+        
+        </td>
+        </tr>
+    </table>
+</body>
+</html>

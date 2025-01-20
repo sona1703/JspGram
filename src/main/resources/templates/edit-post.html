@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Edit-Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #1877f2;
+            margin-bottom: 30px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input[type="text"], input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        img {
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #1877f2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #166fe5;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        label {
+            font-weight: bold;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>Update Post</h1>
+      <div class="container">
+        <form action="/update-post" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:value="${post.id}" name="id">
+            <img th:src="${post.imageUrl}" height="150px" width="150px">
+            <div class="form-group">
+                <label>Image (Leave Blank if Don't want to change)</label>
+                <input type="file" name="image">
+            </div>
+            <div class="form-group">
+                <label>Caption</label>
+                <input type="text" th:value="${post.caption}" name="caption" required>
+            </div>
+            <button>Update</button>
+        </form>
+    </div>
+</body>
+</html>

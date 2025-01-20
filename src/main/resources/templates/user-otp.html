@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+           
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+           
+            min-height: 100vh;
+            background: linear-gradient(45deg, #0e0e0e, #1f1f1f);
+        }
+        .message {
+            position: fixed;
+            top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 5px;
+            backdrop-filter: blur(5px);
+            color: white;
+        }
+        .otp-container {
+          
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem 3rem;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        p {
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+        .otp-input {
+        
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            
+            background: rgba(255, 255, 255, 0.07);
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .otp-input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        .verify-button {
+            
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            background: #00ff88;
+            color: #000;
+            border: none;
+            
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .verify-button:hover {
+           
+            background: #00cc6a;
+            transform: scale(0.98);
+        }
+        a {
+            color: #00ff88;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        a:hover {
+            color: #00cc6a;
+        }
+        h3[style*="color: green"] {
+            color: #00ff88 !important;
+        }
+        h3[style*="color: red"] {
+            color: #ff4444 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="message">
+        <h3 style="color: green;" th:text="${session.pass}"></h3>
+        <h3 style="color: red;" th:text="${session.fail}"></h3>
+        <th:block th:text="${@messageRemover.remove()}"></th:block>
+    </div>
+
+    <div class="otp-container">
+        <h2>OTP Verification</h2>
+        <p>Please enter the OTP sent to your email/phone</p>
+        <form action="/verify-otp" method="post">
+            <input type="hidden" name="id" th:value="${id}">
+            <input type="text" name="otp" class="otp-input" placeholder="Enter OTP" required>
+            <br>
+            <button type="submit" class="verify-button">Verify OTP</button>
+        </form>
+        <a th:href="'/resend-otp/'+${id}">Resend OTP</a>
+    </div>
+</body>
+</html>

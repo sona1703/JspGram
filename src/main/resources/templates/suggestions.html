@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <title>Suggestions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        img{
+            height: 120px;
+        width: 120px;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #0e0e0e, #1f1f1f);
+        }
+        .message {
+            position: fixed;
+            top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 5px;
+            backdrop-filter: blur(5px);
+            color: white;
+        }
+        .otp-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem 3rem;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        p {
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+        .otp-input {
+            width: 200px;
+            padding: 10px;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.07);
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .otp-input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        .verify-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            background: #00ff88;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .verify-button:hover {
+            background-color: #0056b3;
+            background: #00cc6a;
+            transform: scale(0.98);
+        }
+        a {
+            color: #00ff88;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        a:hover {
+            color: #00cc6a;
+        }
+        h3[style*="color: green"] {
+            color: #00ff88 !important;
+        }
+        h3[style*="color: red"] {
+            color: #ff4444 !important;
+        }
+    </style> 
+   
+</head>
+
+<body>
+    <table>
+        <tr th:each="suggestion:${suggestions}">
+            <td><img th:if="${suggestion.imageUrl==null}"
+                    src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
+                    alt="Profile Picture" class="profile-picture">
+                <img th:if="${suggestion.imageUrl}" th:src="${suggestion.imageUrl}" alt="Profile Picture"
+                    class="profile-picture">
+            </td>
+            <td th:text="${suggestion.username}"></td>
+            <td><a th:href="'/view-profile/'+${suggestion.id}"><button>View Profile</button></a></td>
+            <td><a th:href="'/follow/'+${suggestion.id}"><button>Follow</button></a></td>
+        </tr>
+    </table>
+</body>
