@@ -1,6 +1,7 @@
 package org.jsp.jsp_gram.service;
 
 import java.util.Random;
+import org.jsp.jsp_gram.dto.Comment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -389,6 +390,33 @@ public class UserService {
 					break;
 				}
 			}
+			postRepository.save(post);
+			return "redirect:/home";
+		} else {
+			session.setAttribute("fail", "Invalid Session");
+			return "redirect:/login";
+		}
+	}
+	public String loadCommentPage(int id, HttpSession session, ModelMap map) {
+		User user = (User) session.getAttribute("user");
+		if (user != null) {
+			map.put("id", id);
+			return "comment.html";
+		} else {
+			session.setAttribute("fail", "Invalid Session");
+			return "redirect:/login";
+		}
+	}
+	public String comment(int id, HttpSession session, String comment) {
+		User user = (User) session.getAttribute("user");
+		if (user != null) {
+			Post post = postRepository.findById(id).get();
+			
+			Comment userComment=new Comment();
+			userComment.setComment(comment);
+			userComment.setUser(user);
+			
+			post.getComments().add(userComment);
 			postRepository.save(post);
 			return "redirect:/home";
 		} else {

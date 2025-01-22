@@ -1,5 +1,6 @@
 package org.jsp.jsp_gram.dto;
 import java.time.LocalDateTime;
+import jakarta.persistence.CascadeType;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.FetchType;
@@ -29,6 +30,9 @@ public class Post {
 	private User user;
 	@ManyToMany(fetch = FetchType.EAGER)
 	List<User> likedUsers = new ArrayList<User>();
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	List<Comment> comments = new ArrayList<Comment>();
 	
 	public boolean hasLiked(int id) {
 		for (User likedUser : likedUsers) {
