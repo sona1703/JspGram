@@ -1,7 +1,10 @@
 package org.jsp.jsp_gram.controller;
 
 import org.jsp.jsp_gram.dto.Post;
-import org.jsp.jsp_gram.dto.Comment;
+
+//import org.jsp.jsp_gram.dto.Comment;
+import org.springframework.web.bind.annotation.RequestMapping;
+import com.razorpay.RazorpayException;
 import org.jsp.jsp_gram.dto.User;
 import org.jsp.jsp_gram.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,7 +154,17 @@ public class AppController {
 	}
 	@PostMapping("/comment/{id}")
 	public String comment(@PathVariable int id, HttpSession session, @RequestParam String comment) {
-		return service.comment(id,session,comment);
+		
+		return service.comment(id, session, comment);
+	}
+	@GetMapping("/prime")
+	public String prime(HttpSession session, ModelMap map) throws RazorpayException {
+		return service.prime(session, map);
+	}
+	
+	@PostMapping("/prime")
+	public String prime(HttpSession session) throws RazorpayException {
+		return service.prime(session);
 	}
 		
 }
